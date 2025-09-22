@@ -10,12 +10,15 @@ namespace NIM
     {
         public static class Globals
         {
-            public static char spiller = 'N';
+            public static string spiller1;
+            public static string spiller2;
+            public static string active;
         }
 
         static void Main(string[] args)
         {
             int antalbrikker = 15; // Random antal?
+            skriv_navne();
 
             while (true)
             {
@@ -47,20 +50,20 @@ namespace NIM
                 if (antalbrikker <= 0)
                 {
                     skiftspiller();
-                    Console.WriteLine($"{Globals.spiller} har tabt!");
+                    Console.WriteLine($"{Globals.active} har tabt!");
                     break;
                 }
             }
         }
         static void skiftspiller()
         {
-            if (Globals.spiller == 'N')
+            if (Globals.active == Globals.spiller1)
             {
-                Globals.spiller = 'R';
+                Globals.active = Globals.spiller2;
             }
             else
             {
-                Globals.spiller = 'N';
+                Globals.active = Globals.spiller1;
             }
         }
 
@@ -86,7 +89,16 @@ namespace NIM
 
         static void vis_spiller()
         {
-            Console.WriteLine($"spiller {Globals.spiller}");
+            Console.WriteLine($"{Globals.active}:");
+        }
+
+        static void skriv_navne()
+        {
+            Console.Write("Spiller 1: ");
+            Globals.spiller1 = Convert.ToString(Console.ReadLine());
+            Console.Write("Spiller 2: ");
+            Globals.spiller2 = Convert.ToString(Console.ReadLine());
+            Globals.active = Globals.spiller1;
         }
     }
 }
