@@ -12,7 +12,7 @@ namespace NIM
         {
             public static char spiller = '1';
         }
-        
+
         static void Main(string[] args)
         {
             int antalbrikker = 15; // Random antal?
@@ -33,10 +33,10 @@ namespace NIM
 
                 break;
             }
-
+        }
         static void skiftspiller()
         {
-            if (Globals.spiller = '1')
+            if (Globals.spiller == '1')
             {
                 Globals.spiller = '2';
             }
@@ -52,7 +52,6 @@ namespace NIM
             int remove = Convert.ToInt16(Console.ReadLine());
 
             return remove;
-            }
         }
     }
 }
