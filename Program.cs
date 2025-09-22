@@ -10,7 +10,7 @@ namespace NIM
     {
         public static class Globals
         {
-            public static char spiller = '1';
+            public static char spiller = 'N';
         }
 
         static void Main(string[] args)
@@ -19,9 +19,11 @@ namespace NIM
 
             while (true)
             {
+                vis_spiller();
+
                 Random rnd = new Random();
 
-                for (int i = 1; i != antalbrikker; i++)
+                for (int i = 1; i <= antalbrikker; i++)
                 {
                     int colornumber = rnd.Next(9, 13);
                     ConsoleColor color = (ConsoleColor)colornumber;
@@ -31,27 +33,60 @@ namespace NIM
                 }
                 Console.ResetColor();
 
-                break;
+                Console.Write($" ({antalbrikker})");
+                Console.WriteLine(" ");
+
+                int remove = knapper();
+                antalbrikker -= remove;
+
+                if (remove != 0)
+                {
+                    skiftspiller();
+                }
+
+                if (antalbrikker <= 0)
+                {
+                    skiftspiller();
+                    Console.WriteLine($"{Globals.spiller} har tabt!");
+                    break;
+                }
             }
         }
         static void skiftspiller()
         {
-            if (Globals.spiller == '1')
+            if (Globals.spiller == 'N')
             {
-                Globals.spiller = '2';
+                Globals.spiller = 'R';
             }
             else
             {
-                Globals.spiller = '1';
+                Globals.spiller = 'N';
             }
         }
 
         static int knapper()
-        { 
-            Console.Write($"spiller {Globals.spiller} - tag 1/2/3 brikker");
+        {
+            Console.Write("tag 1 / 2 / 3 brikker: ");
             int remove = Convert.ToInt16(Console.ReadLine());
 
+            if (remove > 3)
+            {
+                Console.WriteLine("Forkert tal valgt");
+                return 0;
+            }
+            if (remove < 1)
+            {
+                Console.WriteLine("Forkert tal valgt");
+                return 0;
+            }
+
+
             return remove;
+        }
+
+        static void vis_spiller()
+        {
+            Console.WriteLine($"spiller {Globals.spiller}");
         }
     }
 }
