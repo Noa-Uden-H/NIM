@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +18,8 @@ namespace NIM
 
         static void Main(string[] args)
         {
-            int antalbrikker = 15; // Random antal?
             skriv_navne();
+            int antalbrikker = antalbrikker_options();
 
             while (true)
             {
@@ -70,7 +71,17 @@ namespace NIM
         static int knapper()
         {
             Console.Write("tag 1 / 2 / 3 brikker: ");
-            int remove = Convert.ToInt16(Console.ReadLine());
+            int remove = 0;
+
+            try
+            {
+                remove = Convert.ToInt16(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Det var ikke et tal!");
+                return 0;
+            }
 
             if (remove > 3)
             {
@@ -82,7 +93,6 @@ namespace NIM
                 Console.WriteLine("Forkert tal valgt");
                 return 0;
             }
-
 
             return remove;
         }
@@ -99,6 +109,22 @@ namespace NIM
             Console.Write("Spiller 2: ");
             Globals.spiller2 = Convert.ToString(Console.ReadLine());
             Globals.active = Globals.spiller1;
+        }
+        static int antalbrikker_options()
+        {
+            Console.Write("Vil du vælge et antal? (y/n): ");
+            char option = Char.ToUpper(Convert.ToChar(Console.ReadLine()));
+            if (option == 'Y')
+            {
+                Console.Write("Hvor mange brikker? ");
+                int antal = Convert.ToInt16(Console.ReadLine());
+                return antal;
+            }
+            else
+            {
+                Random rnd = new Random();
+                return rnd.Next(10,99);
+            }
         }
     }
 }
